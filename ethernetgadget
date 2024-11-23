@@ -1,0 +1,28 @@
+## source: https://learn.adafruit.com/turning-your-raspberry-pi-zero-into-a-usb-gadget/ethernet-gadget
+
+## config.txt
+## add to bottom...
+dtoverlay=dwc2
+
+## cmdline.txt
+## after rootwait...
+modules-load=dwc2,g_ether
+
+## dmesg: bound driver g_ether
+
+ssh raspberrypi.local
+
+## static ip
+sudo nano /etc/network/interfaces
+
+allow-hotplug usb0
+iface usb0 inet static
+        address 192.168.7.2
+        netmask 255.255.255.0
+        network 192.168.7.0
+        broadcast 192.168.7.255
+        gateway 192.168.7.1
+
+sudo ifdown usb0
+sudo ifup usb0
+ifconfig usb0
