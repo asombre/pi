@@ -1,0 +1,1 @@
+echo "raspberry" | openssl passwd -6 -stdin
