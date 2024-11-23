@@ -1,0 +1,33 @@
+## userconf.txt
+## wpa_supplicant.conf
+## config.txt
+## ssh
+
+## create encrypted password
+echo "raspberry" | openssl passwd -6 -stdin
+
+## userconf.txt
+pi:<encrypted_password>
+
+## wpa_supplicant.conf
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=US
+
+network={
+    ssid="YOURSSID"
+    psk="YOURPASSWORD"
+    scan_ssid=1
+}
+
+## config.txt
+## add to end of file...
+# Enable UART
+enable_uart=1
+
+## bootfs/config.txt
+# latest pi os releases
+dtparam=uart0_console=on
+
+## for ssh, create empty file in boot directory
+touch ssh
